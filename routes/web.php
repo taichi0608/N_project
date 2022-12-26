@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\SummarySectionController;
+use App\Http\Controllers\DepartmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +16,7 @@ use App\Http\Controllers\SummarySectionController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Auth::routes();
@@ -27,19 +27,24 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 // 部門マスターーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
-// 一覧表示
-Route::get('/department/list', [HomeController::class, 'list'])->name('list');
-// 登録画面表示
-Route::get('/department/create', [HomeController::class, 'create'])->name('create');
-// 登録
-Route::post('/department/store', [HomeController::class, 'store'])->name('store');
-// 詳細表示
-Route::get('/department/detail/{id}', [HomeController::class, 'detail'])->name('detail');
-// 編集表示
-Route::get('/department/edit/{id}', [HomeController::class, 'edit'])->name('edit');
-Route::post('/department/update', [HomeController::class, 'update'])->name('update');
-// 削除
-Route::post('/department/delete/{id}', [HomeController::class, 'delete'])->name('delete');
+Route::prefix('department')->group(function() {
+    // 一覧表示
+    Route::get('list', [DepartmentController::class, 'list'])->name('list');
+    // 登録画面表示
+    Route::get('create', [DepartmentController::class, 'create'])->name('create');
+    // 登録
+    Route::post('store', [DepartmentController::class, 'store'])->name('store');
+    // 詳細表示
+    Route::get('detail/{id}', [DepartmentController::class, 'detail'])->name('detail');
+    // 編集表示
+    Route::get('edit/{id}', [DepartmentController::class, 'edit'])->name('edit');
+    Route::post('update', [DepartmentController::class, 'update'])->name('update');
+    // 削除
+    Route::post('delete', [DepartmentController::class, 'delete'])->name('delete');
+});
+
+// 部門マスターーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+
 
 
 
@@ -58,3 +63,7 @@ Route::get('/summary_section/edit/{id}', [SummarySectionController::class, 's_ed
 Route::post('/summary_section/update', [SummarySectionController::class, 's_update'])->name('s_update');
 // 削除
 Route::post('/summary_section/delete/{id}', [SummarySectionController::class, 's_delete'])->name('s_delete');
+
+// 絞込み検索
+// Route::get('show', [SummarySectionController::class, 'show'])->name('show');
+// Route::get('search', [SummarySectionController::class, 'search'])->name('search');

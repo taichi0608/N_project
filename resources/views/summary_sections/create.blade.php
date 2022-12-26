@@ -16,7 +16,7 @@
     <div class="">
         <div class="">
             <div class="">
-                <form method="POST" action="{{ route('store') }}" onSubmit="return checkSubmit()">
+                <form method="POST" action="{{ route('s_store') }}" onSubmit="return checkSubmit()">
                     @csrf
                     <p class="ps-20">検索バー</p>
                     
@@ -72,7 +72,8 @@
                     <div class="col-12">
                         <div class="form-check input_wrap">
                             <label class="form-check-label label" for="Hidden">非表示</label>
-                            <input class="form-check-input" type="checkbox" id="Hidden" name="Hidden" value="1" >
+                            <input name="Hidden" type="hidden" value="表示">
+                            <input class="form-check-input" type="checkbox" id="Hidden" name="Hidden" value="非表示">
                         </div>
                     </div>
 

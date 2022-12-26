@@ -15,7 +15,7 @@ class CreateSummariesTable extends Migration
     {
         Schema::create('summaries', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('department_id')->constrained()->onUpdate('Sectioncode');
+            $table->foreignId('department_id')->constrained()->onUpdate('cascade');
             
             $table->char('TenantCode');
             $table->integer('TenantBranch');

@@ -26,12 +26,12 @@ class SummarySectionRequest extends FormRequest
     {
         return [
             //部門マスタのバリデーション
-            // 'SectionCode' => 'required | numeric | max:1000',
-            // 'SectionName' => 'required | max:20',
-            // 'SectionAbName' => 'required | max:5',
+            'SectionCode' => 'required | numeric | max:1000',
+            'SectionName' => 'required | max:20',
+            'SectionAbName' => 'required | max:5',
             // 'PayFor' => 'required |  max:5',
-            // 'Hidden' => 'max:10',
-            // 'DisplayOrder' => 'required | max:100',
+            'Hidden' => 'max:10',
+            'DisplayOrder' => 'required | max:100',
             
         ];
     }

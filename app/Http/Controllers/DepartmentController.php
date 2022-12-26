@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\SummarySectiontRequest;
-use App\Models\SummarySection;
+use App\Http\Requests\DepartmentRequest;
+use App\Models\Department;
 
-class SummarySectionController extends Controller
+class DepartmentController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -18,16 +18,15 @@ class SummarySectionController extends Controller
         $this->middleware('auth');
     }
 
-
     /**
      * 一覧表示 
      * 
      * @return view
      */
-    public function s_list()
+    public function list()
     {
-        $inputs = SummarySection::all();
-        return view('summary_sections.list',['inputs' => $inputs]);
+        $inputs = Department::all();
+        return view('department.list',['inputs' => $inputs]);
     }
 
      /**
@@ -36,14 +35,14 @@ class SummarySectionController extends Controller
      * @param int $id
      * @return view
      */
-    public function s_detail($id)
+    public function detail($id)
     {
-        $input = SummarySection::find($id);
+        $input = Department::find($id);
         if(is_null($input)){
             \Session::flash('err_msg' , 'データがありません。');
-            return redirect( route('home') );
+            return redirect( route('list') );
         }
-        return view('summary_sections.detail',['input' => $input]);
+        return view('department.detail',['input' => $input]);
     }
 
     /**
@@ -51,9 +50,9 @@ class SummarySectionController extends Controller
      * 
      * @return view
      */
-    public function s_create()
+    public function create()
     {
-        return view('summary_sections.create');
+        return view('department.create');
     }
 
     /**
@@ -61,7 +60,7 @@ class SummarySectionController extends Controller
      * 
      * @return view
      */
-    public function s_store(SummarySectionRequest $request)
+    public function store(DepartmentRequest $request)
     {
         // データを受け取る
         $inputs = $request->all();
@@ -70,14 +69,14 @@ class SummarySectionController extends Controller
    
         try{
             // データを登録
-            SummarySection::create($inputs);
+            Department::create($inputs);
             \DB::commit();
         }catch(\Throwable $e){
             \DB::rollback();
             abort(500);
         }
         \Session::flash('err_msg' , '登録しました。');
-        return redirect( route('create') );
+        return redirect( route('list') );
     }
 
      /**
@@ -86,14 +85,14 @@ class SummarySectionController extends Controller
      * @param int $id
      * @return view
      */
-    public function s_edit($id)
+    public function edit($id)
     {
-        $input = SummarySection::find($id);
+        $input = Department::find($id);
         if(is_null($input)){
             \Session::flash('err_msg' , 'データがありません。');
-            return redirect( route('home') );
+            return redirect( route('list') );
         }
-        return view('summary_sections.edit',['input' => $input]);
+        return view('department.edit',['input' => $input]);
     }
 
     /**
@@ -101,15 +100,15 @@ class SummarySectionController extends Controller
      * 
      * @return view
      */
-    public function s_update(SummarySectionRequest $request)
+    public function update(DepartmentRequest $request)
     {
         // データを受け取る
         $input = $request->all();
         \DB::beginTransaction();
-    //   dd($input);
+ 
         try{
             // データを更新
-            SummarySection::where('id', $input['id'])->update([
+            Department::where('id', $input['id'])->update([
                 // 'TenantCode' => $input['TenantBranch'],
                 'SectionCode' => $input['SectionCode'],
                 'SectionName' => $input['SectionName'],
@@ -119,38 +118,27 @@ class SummarySectionController extends Controller
                 'DisplayOrder' => $input['DisplayOrder'],
                 // 'UpdatePerson' => $input['UpdatePerson']
             ]);
-            
-            
             \DB::commit();
         }catch(\Throwable $e){
             \DB::rollback();
             abort(500);
         }
         \Session::flash('err_msg' , '更新しました。');
-        return redirect( route('home') );
+        return redirect( route('list') );
     }
-
 
     /**
      * 削除する 
      * @param int $id
      * @return view
      */
-    public function s_delete($id)
+    public function delete(Request $request)
     {
-        // dd($id);
-        // データを受け取る
-        if(empty($id)){
-            \Session::flash('err_msg' , 'データがありません。');
-            return redirect( route('home') );
-        }
-        
-        try{
-            SummarySection::destroy($id);
-        }catch(\Throwable $e){ 
-            abort(500);
-        }
+        $inputs = $request->all();
+        Department::where('id', $inputs['id'])->delete();
         \Session::flash('err_msg' , '削除しました。');
-        return redirect( route('home') );
+        return redirect( route('list') );
     }
+
+
 }

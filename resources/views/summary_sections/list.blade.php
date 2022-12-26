@@ -27,15 +27,17 @@
                     <th>表示順</th>
                     <th>非表示</th>
                 </tr>
-                @foreach($inputs as $input)
+               
+                @foreach($departments as $department)
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td>{{ $input['SectionCode'] }}</td>
-                    <td>{{ $input['SummarySectionName'] }}</td>
-                    <td>{{ $input['SummarySectionAbName'] }}</td>
-                    <td>{{ $input['DisplayOrder'] }}</td>
-                    <td>{{ $input['Hidden'] }}</td>
+             
+                    <td>{{ $department->departments_code }}</td>
+                    <td>{{ $department->SectionName }}</td>
+                    <td>{{ $department->SectionCode }}</td>
+                    <td>{{ $department->SummarySectionName }}</td>
+                    <td>{{ $department->SummarySectionAbName }}</td>
+                    <td>{{ $department->DisplayOrder }}</td>
+                    <td>{{ $department->Hidden }}</td>
                 </tr>
                 @endforeach
             </table>

@@ -1,22 +1,22 @@
-@extends('layouts.app')
-@section('content')
+@extends('department.department_layouts.layout')
+@section('department.department_layouts.layout.title', '部門マスタ：一覧表示')
+
+@section('department.content')
 
 <div class="container">
-    <h2>一覧</h2>
-    <nav class="department_nav_list">
-        <p class="department_nav_item picup"><a href="{{ route('list') }}">一覧表示</a></p>
-        <p class="department_nav_item"><a href="{{ route('create') }}">新規登録</a></p>
-   
-    </nav>
+    <h2>一覧表示</h2>
+
+     @if(session('err_msg'))
+        <p class="text-danger">
+            {{ session('err_msg') }}
+        </p>
+    @endif
+
+    <div class="change_nav">
+        @include('department.department_layouts.page_nav')<!-- 新規作成などのページ遷移ナビゲーションを継承 -->
+    </div>
     <div class="row">
         <div class="col-md-10 col-md-offset-2">
-            
-                @if(session('err_msg'))
-                <p class="text-danger">
-                    {{ session('err_msg') }}
-                </p>
-                @endif
-
             <table class="table table-striped">
                 <tr>
                     <th>部門コード</th>
@@ -25,6 +25,8 @@
                     <th>立替</th>
                     <th>表示順</th>
                     <th>非表示</th>
+                    <th></th>
+                   
                 </tr>
                 @foreach($inputs as $input)
                 <tr>
@@ -34,6 +36,7 @@
                     <td>{{ $input['PayFor'] }}</td>
                     <td>{{ $input['DisplayOrder'] }}</td>
                     <td>{{ $input['Hidden'] }}</td>
+                    <td><a href="/department/edit/{{ $input['id'] }}">編集・削除</a></td>
                 </tr>
                 @endforeach
             </table>

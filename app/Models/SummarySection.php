@@ -7,16 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Department;
 
-class Summary extends Model
+class SummarySection extends Model
 {
     use HasFactory;
-    //テーブル名
-    protected $table = 'summary_sections';
+     //テーブル名
+     protected $table = 'summaries';
 
-    //可変項目
-    protected $fillable = 
-    [
-        'department_id',
+     //可変項目
+     protected $fillable = 
+     [
         'TenantCode',
         'TenantBranch',
         'SectionCode',
@@ -26,11 +25,11 @@ class Summary extends Model
         'Hidden',
         'DisplayOrder',
         'UpdatePerson'
-    ];
+     ];
 
-    //Departmentモデルと結合
-    public function Department()
-    {
-        return $this->belongsTo(Department::class);
-    }
+     public function Department()
+     {
+         return $this->belongsTo(Department::class);
+     }
+
 }

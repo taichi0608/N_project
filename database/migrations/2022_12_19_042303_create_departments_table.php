@@ -15,16 +15,16 @@ class CreateDepartmentsTable extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
-            $table->char('TenantCode');
-            $table->integer('TenantBranch');
+            $table->char('TenantCode');//データなし
+            $table->integer('TenantBranch');//データなし
             $table->integer('SectionCode');
             $table->char('SectionName');
             $table->char('SectionAbName');
-            $table->integer('PayFor');
-            $table->boolean('Hidden');
-            $table->integer('DisplayOrde');
+            $table->char('PayFor');
+            $table->integer('DisplayOrder');
+            $table->char('Hidden');
             $table->timestamps();
-            $table->integer('UpdatePerson');
+            $table->integer('UpdatePerson');//データなし
         });
     }
 
