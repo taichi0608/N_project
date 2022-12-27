@@ -3,38 +3,37 @@
 
 @section('department.content')
 
-<div class="container">
-  <h2>編集・削除</h2>
+<div class="container form-wrap">
     <div class="change_nav">
         @include('department.department_layouts.page_nav')<!-- 新規作成などのページ遷移ナビゲーションを継承 -->
     </div>
     <div class="wrap">
-        <form method="POST" action="{{ route('update') }}" onSubmit="return checkSubmit()">
+        <form method="POST" action="{{ route('department.update') }}" onSubmit="return checkSubmit()">
             @csrf
             <!-- id受け取り -->
             <input type="hidden" name="id" value="{{ $input['id'] }}"> 
             <div class="department_cd input_wrap">
-                <label for="SectionCode" class="form-label label">部門CD</label>
-                <input type="text" class="form-control input_box" id="SectionCode" name="SectionCode"  value="{{ $input['SectionCode'] }}">
+                <label for="category_code" class="form-label label">部門コード</label>
+                <input type="text" class="form-control input_box" id="category_code" name="category_code"  value="{{ $input['category_code'] }}">
             </div>
-            @if ($errors->has('SectionCode'))
-            <div class="text-danger err_m">{{ $errors->first('SectionCode') }}</div>
+            @if ($errors->has('category_code'))
+            <div class="text-danger err_m">{{ $errors->first('category_code') }}</div>
             @endif
 
             <div class="department_name input_wrap">
-                <label for="SectionName" class="form-label label">部門名称</label>
-                <input type="text" class="form-control input_box" id="SectionName"  name="SectionName" value="{{ $input['SectionName'] }}">
+                <label for="category_name" class="form-label label">部門名称</label>
+                <input type="text" class="form-control input_box" id="category_name"  name="category_name" value="{{ $input['category_name'] }}">
             </div>
-            @if ($errors->has('SectionName'))
-            <div class="text-danger err_m">{{ $errors->first('SectionName') }}</div>
+            @if ($errors->has('category_name'))
+            <div class="text-danger err_m">{{ $errors->first('category_name') }}</div>
             @endif
 
             <div class="department_ab_name input_wrap">
-                <label for="SectionAbName" class="form-label label">部門略称</label>
-                <input type="text" class="form-control input_box" id="SectionAbName" name="SectionAbName"  value="{{ $input['SectionAbName'] }}">
+                <label for="category_ab_name" class="form-label label">部門略称</label>
+                <input type="text" class="form-control input_box" id="category_ab_name" name="category_ab_name"  value="{{ $input['category_ab_name'] }}">
             </div>
-            @if ($errors->has('SectionAbName'))
-            <div class="text-danger err_m">{{ $errors->first('SectionAbName') }}</div>
+            @if ($errors->has('category_ab_name'))
+            <div class="text-danger err_m">{{ $errors->first('category_ab_name') }}</div>
             @endif
 
             <div class="department_payfor input_wrap m-0">
@@ -87,7 +86,7 @@
             </div>
 
             <div class="mt-5 d-inline-block">
-                <a class="btn btn-secondary" href="{{ route('list') }}">
+                <a class="btn btn-secondary" href="{{ route('department.list') }}">
                     キャンセル
                 </a>
                 <button type="submit" class="btn btn-primary ms-4">
@@ -96,7 +95,7 @@
             </div>
         </form>
         <!-- 削除ボタン -->
-        <form class="card-body delete" action="{{ route('delete') }}" method="POST" onSubmit="return checkDestroy()">
+        <form class="card-body delete" action="{{ route('department.delete') }}" method="POST" onSubmit="return checkDestroy()">
             @csrf
             <input type="hidden" name="id" value="{{ $input->id }}">
             <button type="submit" class="btn btn-danger">削除する</button>

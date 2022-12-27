@@ -158,6 +158,19 @@ return [
         'SectionCode' => '部門コード',
         'SectionName' => '部門名称',
         'SectionAbName' => '部門略称',
+
+        'category_code' => '部門コード',
+        'category_name' => '部門名称',
+        'category_ab_name' => '部門略称',
+        'PayFor' => '立替区分',
+        'Hidden' => '表示設定',
+        'DisplayOrder' => '表示順',
+
+        'category_id' => '関連する部門',
+        'SummarySectionName' => '集計部門名',
+        'product_ab_name' => '集計部門略称',
+        'SummarySectionCode' => '集計部門コード',
+   
     ],
             
 

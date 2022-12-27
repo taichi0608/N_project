@@ -4,7 +4,6 @@
 @section('department.content')
 
 <div class="container">
-    <h2>一覧表示</h2>
 
      @if(session('err_msg'))
         <p class="text-danger">
@@ -17,26 +16,30 @@
     </div>
     <div class="row">
         <div class="col-md-10 col-md-offset-2">
-            <table class="table table-striped">
-                <tr>
-                    <th>部門コード</th>
-                    <th>部門名称</th>
-                    <th>部門略称</th>
-                    <th>立替</th>
-                    <th>表示順</th>
-                    <th>非表示</th>
-                    <th></th>
-                   
-                </tr>
+            <table class="table table-table-hover">
+                <thead style="background-color: #0d6efd; color:#fff; text-align:center">
+                    <tr>
+                        <th>部門コード</th>
+                        <th>部門名称</th>
+                        <th>部門略称</th>
+                        <th>立替</th>
+                        <th>表示順</th>
+                        <th>非表示</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
                 @foreach($inputs as $input)
-                <tr>
-                    <td><a href="/department/detail/{{ $input['id'] }}">{{ $input['SectionCode'] }}</a></td>
-                    <td>{{ $input['SectionName'] }}</td>
-                    <td>{{ $input['SectionAbName'] }}</td>
+                <tr style="vertical-align:middle; text-align:center">
+                    <td>{{ $input['category_code'] }}</td>
+                    <td>{{ $input['category_name'] }}</td>
+                    <td>{{ $input['category_ab_name'] }}</td>
                     <td>{{ $input['PayFor'] }}</td>
                     <td>{{ $input['DisplayOrder'] }}</td>
                     <td>{{ $input['Hidden'] }}</td>
-                    <td><a href="/department/edit/{{ $input['id'] }}">編集・削除</a></td>
+       
+                    <!-- <td><a href="/department/detail/{{ $input['id'] }}" class="btn btn-primary btn-sm">詳細表示</a></td> -->
+                    <td><a href="/department/edit/{{ $input['id'] }}" class="btn btn-primary btn-sm">編集・削除</a></td>
                 </tr>
                 @endforeach
             </table>

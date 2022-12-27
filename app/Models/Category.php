@@ -5,13 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\SummarySection;
-
-class Department extends Model
+class Category extends Model
 {
-    use HasFactory;
 
-    
+
      //テーブル名
      protected $table = 'categories';
 
@@ -32,7 +29,7 @@ class Department extends Model
     public function getLists()
     {
         // カテゴリー名かカテゴリーIDで検索かける
-        $categories = Department::pluck('category_name', 'id');
+        $categories = Category::pluck('category_name', 'id');
         
         return $categories;
     }
@@ -42,11 +39,13 @@ class Department extends Model
         return $this->hasMany(Product::class);
     }
 
+    // 親要素を削除すると関連する子要素も削除
     public static function boot()
     {
         parent::boot();
-        static::deleted(function ($inputs) {
-            $inputs->products()->delete();
+        static::deleting(function ($deleted_child) {
+            $deleted_child->products()->delete();
         });
     }
+
 }

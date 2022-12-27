@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreSummaryRequest extends FormRequest
+class ProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,8 @@ class StoreSummaryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        // return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,11 @@ class StoreSummaryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            //部門マスタのバリデーション
+            'category_id' => 'required | numeric | max:10000',
+            'SummarySectionCode' => 'required | numeric | max:10000',
+            'SummarySectionName' =>'required | max:20',
+            'product_ab_name' => 'required |  max:100',
         ];
     }
 }

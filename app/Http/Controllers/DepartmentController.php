@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\DepartmentRequest;
 use App\Models\Department;
+use App\Models\Category;
 
 class DepartmentController extends Controller
 {
@@ -25,7 +26,7 @@ class DepartmentController extends Controller
      */
     public function list()
     {
-        $inputs = Department::all();
+        $inputs = Category::all();
         return view('department.list',['inputs' => $inputs]);
     }
 
@@ -37,7 +38,7 @@ class DepartmentController extends Controller
      */
     public function detail($id)
     {
-        $input = Department::find($id);
+        $input = Category::find($id);
         if(is_null($input)){
             \Session::flash('err_msg' , 'データがありません。');
             return redirect( route('list') );
@@ -62,21 +63,18 @@ class DepartmentController extends Controller
      */
     public function store(DepartmentRequest $request)
     {
-        // データを受け取る
         $inputs = $request->all();
         \DB::beginTransaction();
-        // dd($inputs);
    
         try{
-            // データを登録
-            Department::create($inputs);
+            Category::create($inputs);
             \DB::commit();
         }catch(\Throwable $e){
             \DB::rollback();
             abort(500);
         }
         \Session::flash('err_msg' , '登録しました。');
-        return redirect( route('list') );
+        return redirect( route('department.list') );
     }
 
      /**
@@ -87,10 +85,10 @@ class DepartmentController extends Controller
      */
     public function edit($id)
     {
-        $input = Department::find($id);
+        $input = Category::find($id);
         if(is_null($input)){
             \Session::flash('err_msg' , 'データがありません。');
-            return redirect( route('list') );
+            return redirect( route('department.list') );
         }
         return view('department.edit',['input' => $input]);
     }
@@ -102,29 +100,26 @@ class DepartmentController extends Controller
      */
     public function update(DepartmentRequest $request)
     {
-        // データを受け取る
-        $input = $request->all();
+        $inputs = $request->all();
         \DB::beginTransaction();
- 
         try{
-            // データを更新
-            Department::where('id', $input['id'])->update([
-                // 'TenantCode' => $input['TenantBranch'],
-                'SectionCode' => $input['SectionCode'],
-                'SectionName' => $input['SectionName'],
-                'SectionAbName' => $input['SectionAbName'],
-                'PayFor' => $input['PayFor'],
-                'Hidden' => $input['Hidden'],
-                'DisplayOrder' => $input['DisplayOrder'],
-                // 'UpdatePerson' => $input['UpdatePerson']
-            ]);
+            $input = Category::find($inputs['id']);
             \DB::commit();
+            $input->fill([
+                'category_code' => $inputs['category_code'],
+                'category_name' => $inputs['category_name'],
+                'category_ab_name' => $inputs['category_ab_name'],
+                'DisplayOrder' => $inputs['DisplayOrder'],
+                'PayFor' => $inputs['PayFor'],
+                'Hidden' => $inputs['Hidden'],
+            ]);
+            $input->save();
         }catch(\Throwable $e){
             \DB::rollback();
             abort(500);
         }
         \Session::flash('err_msg' , '更新しました。');
-        return redirect( route('list') );
+        return redirect( route('department.list') );
     }
 
     /**
@@ -135,9 +130,18 @@ class DepartmentController extends Controller
     public function delete(Request $request)
     {
         $inputs = $request->all();
-        Department::where('id', $inputs['id'])->delete();
-        \Session::flash('err_msg' , '削除しました。');
-        return redirect( route('list') );
+        $deleted_child = Category::where('id', $request->id)->first();
+        \DB::beginTransaction();
+        try{
+            $deleted_child->delete(); // このタイミングでcommentも一緒に削除されます。
+            Category::where('id', $inputs['id'])->delete();
+            \DB::commit();     
+        }catch(\Throwable $e){
+            \DB::rollback();
+            abort(500);
+        }
+        \Session::flash('err_msg' , '登録しました。');
+        return redirect( route('search.index') );
     }
 
 

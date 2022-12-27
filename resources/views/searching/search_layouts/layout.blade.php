@@ -8,7 +8,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- <title>{{ config('app.name', 'Laravel') }}</title> -->
-    <title>@yield('department.department_layouts.layout.title')</title>
+    <title>@yield('searching.layout.title')</title>
+    
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -22,11 +23,11 @@
 </head>
 <body>
     <header>
-       @include('department.department_layouts.header')
+       @include('searching.search_layouts.header')
     </header>
+
     <main class="py-4">
-   
-        @yield('department.content')
+        @yield('searching.content')
     </main>
     <footer class="footer bg-dark  fixed-bottom">
         
@@ -46,54 +47,61 @@
     }
     /* オリジナル */
     .nav_wrap{
-        margin-bottom: 20px;
+    margin-bottom: 20px;
     }
     .nav_list{
-        display: flex;
-        margin-bottom: 20px;
+    display: flex;
+    margin-bottom: 20px;
     /* justify-content: space-between; */
     }
     .nav_item{
-        padding: 10px 20px;
-        margin-left: 20px;
-        border: #ced4da 1px solid;
-        border-radius: 0.375rem;
-        text-align: center;
-        text-decoration: none;
+    padding: 10px 20px;
+    margin-left: 20px;
+    border: #ced4da 1px solid;
+    border-radius: 0.375rem;
+    text-align: center;
+    text-decoration: none;
     }
     .nav_item>a{
-        text-align: center;
-        text-decoration: none;
+    text-align: center;
+    text-decoration: none;
     }
 
     .input_wrap{
-        display: flex;
-        padding-left: 0;
-        margin-top: 20px;
+    display: flex;
+    padding-left: 0;
+    margin-top: 20px;
     }
     .label{
-     width: 80px;
+    width: 80px;
     }
     .input_box{
-        max-width: 400px;
+    max-width: 400px;
     }
     .form-check .form-check-input{
-        margin-left: 0;
+    margin-left: 0;
     }
     .department_btn{
-        margin: 40px 0;
+    margin: 40px 0;
     }
 
     .picup{
-        background: #0d6efd;
+    background: #0d6efd;
     }
     .picup>a{
-        color: #fff;
+    color: #fff;
     }
     .err_m{
-        margin-left: 90px;
+    margin-left: 90px;
     }
-  
+    .wrap{
+       max-width: 400px;
+    }
+    .form-label{
+        margin: 0;
+        line-height: 2rem;
+    }
+
 </style>
 
 <script>

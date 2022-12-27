@@ -7,8 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>部門マスタ</title>
-    <!-- <title>{{ config('app.name', '部門マスタ') }}</title> -->
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -22,14 +21,10 @@
 </head>
 <body>
     <div id="app">
-        <header>
-            
-        </header>
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/home') }}">
-                    <!-- {{ config('app.name', 'Laravel') }} -->
-                    部門マスタ
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    {{ config('app.name', 'Laravel-simple-memo') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -47,13 +42,13 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('ログイン') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('新規登録') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -79,10 +74,84 @@
                 </div>
             </div>
         </nav>
+        
 
-        <main class="py-4">
-            @yield('content')
+        <!-- 3カラムに変更 -->
+        <main class="">
+            <div class="row">
+                <div class="col-md-2 p-2 pt-4">
+                    <div class="card">
+                        <div class="card-header">左カラム</div>
+                        <div class="card-body card_height">
+                            <p class="card-text">
+                        
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 p-2 pt-4">
+                    @yield('content')
+                </div>
+
+                <div class="col-md-4 p-2 pt-4">
+                    <div class="card">
+                        <div class="card-header">メモ一覧</div>
+                        <div class="card-body card_height">
+                            @foreach($memos as $memo)
+
+
+                            <!-- ここのルート修正必要 -->
+                            <div class="mb-3 over">
+                            <!-- <div class="mb-3" id="over"> -->
+                                <p class="mous">{{$memo['content']}}</p>
+                                <a href="/sourse/laravel-simple-memo/public/edit/{{$memo['id']}}" class="card-text d-block">
+                                <!-- <a href="/edit/{{$memo['id']}}" class="card-text d-block"> -->
+                                <!-- ここのルート修正必要 -->
+                                    ・{{$memo['title']}}
+                                </a>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 </body>
 </html>
+
+<style>
+ 
+    .mous{
+        display: none;
+        position: absolute;
+        top :50%;
+        left:-100%;
+        background: #999;
+        padding: 30px;
+    }
+</style>
+<script>
+    //target要素を指定
+    const over = document.getElementsByClassName('over');
+    // const over = document.getElementById('over');
+    const mous = document.getElementsByClassName('mous');
+
+    //マウスが要素上に入った時
+    over[0].addEventListener('mouseover', () => {
+    
+    mous[0].style.display = 'block';
+    
+    }, false);
+
+    //マウスが要素上から離れた時
+    over[0].addEventListener('mouseleave', () => {
+    
+    mous[0].style.display = 'none';
+    
+    }, false);
+
+</script>
+

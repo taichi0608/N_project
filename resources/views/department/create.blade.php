@@ -4,37 +4,36 @@
 @section('department.content')
 
 <div class="container">
-  <h2>新規作成</h2>
     <div class="change_nav">
         @include('department.department_layouts.page_nav')<!-- 新規作成などのページ遷移ナビゲーションを継承 -->
     </div>
 
     <div class="wrap">
-        <form method="POST" action="{{ route('store') }}" onSubmit="return checkSubmit()">
+        <form method="POST" action="{{ route('department.store') }}" onSubmit="return checkSubmit()">
             @csrf
             
             <div class="department_cd input_wrap">
-                <label for="SectionCode" class="form-label label">部門CD</label>
-                <input type="text" class="form-control input_box" id="SectionCode" name="SectionCode" placeholder="数値で入力して下さい" value="{{ old('SectionCode') }}">
+                <label for="category_code" class="form-label label">部門CD</label>
+                <input type="text" class="form-control input_box" id="category_code" name="category_code" placeholder="数値で入力して下さい" value="{{ old('category_code') }}">
             </div>
-            @if ($errors->has('SectionCode'))
-            <div class="text-danger err_m">{{ $errors->first('SectionCode') }}</div>
+            @if ($errors->has('category_code'))
+            <div class="text-danger err_m">{{ $errors->first('category_code') }}</div>
             @endif
         
             <div class="department_name input_wrap">
-                <label for="SectionName" class="form-label label">部門名称</label>
-                <input type="text" class="form-control input_box" id="SectionName"  name="SectionName" placeholder="文字で入力して下さい" value="{{ old('SectionName') }}">
+                <label for="category_name" class="form-label label">部門名称</label>
+                <input type="text" class="form-control input_box" id="category_name"  name="category_name" placeholder="文字で入力して下さい" value="{{ old('category_name') }}">
             </div>
-            @if ($errors->has('SectionName'))
-            <div class="text-danger err_m">{{ $errors->first('SectionName') }}</div>
+            @if ($errors->has('category_name'))
+            <div class="text-danger err_m">{{ $errors->first('category_name') }}</div>
             @endif
 
             <div class="department_ab_name input_wrap">
-                <label for="SectionAbName" class="form-label label">部門略称</label>
-                <input type="text" class="form-control input_box" id="SectionAbName" name="SectionAbName"  placeholder="文字で入力して下さい" value="{{ old('SectionAbName') }}">
+                <label for="category_ab_name" class="form-label label">部門略称</label>
+                <input type="text" class="form-control input_box" id="category_ab_name" name="category_ab_name"  placeholder="文字で入力して下さい" value="{{ old('category_ab_name') }}">
             </div>
-            @if ($errors->has('SectionAbName'))
-            <div class="text-danger err_m">{{ $errors->first('SectionAbName') }}</div>
+            @if ($errors->has('category_ab_name'))
+            <div class="text-danger err_m">{{ $errors->first('category_ab_name') }}</div>
             @endif
 
             <div class="department_payfor input_wrap m-0">
@@ -54,6 +53,10 @@
                     </div>
                 </div>
             </div>
+            @if ($errors->has('PayFor'))
+            <div class="text-danger err_m">{{ $errors->first('PayFor') }}</div>
+            @endif
+            
             
 
             <div class="input_wrap">
@@ -71,6 +74,9 @@
                     <option value="10" >10</option>
                 </select>
             </div>
+            @if ($errors->has('DisplayOrder'))
+            <div class="text-danger err_m">{{ $errors->first('DisplayOrder') }}</div>
+            @endif
             
             <div class="col-12">
                 <div class="form-check input_wrap">
@@ -79,6 +85,9 @@
                     <input class="form-check-input" type="checkbox" id="Hidden" name="Hidden" value="非表示">
                 </div>
             </div>
+            @if ($errors->has('Hidden'))
+            <div class="text-danger err_m">{{ $errors->first('Hidden') }}</div>
+            @endif
 
             
             <div class="col-12 department_btn">

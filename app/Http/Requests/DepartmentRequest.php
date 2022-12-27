@@ -26,9 +26,9 @@ class DepartmentRequest extends FormRequest
     {
         return [
             //部門マスタのバリデーション
-            'SectionCode' => 'required | numeric | max:1000',
-            'SectionName' => 'required | max:20',
-            'SectionAbName' => 'required | max:5',
+            'category_code' => 'required | numeric | max:1000',
+            'category_name' => 'required | max:20',
+            'category_ab_name' => 'required | max:5',
             'PayFor' => 'required |  max:5',
             'Hidden' => 'max:10',
             'DisplayOrder' => 'required | max:100',
