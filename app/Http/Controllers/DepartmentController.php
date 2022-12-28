@@ -24,12 +24,41 @@ class DepartmentController extends Controller
      * 
      * @return view
      */
-    public function list()
+    public function list(Request $request)
     {
-        $inputs = Category::all();
-        // $inputs をcategory__codeの昇順に並び替え
-        $inputs = Category::orderBy('category_code', 'asc')->get();
-        return view('department.list',['inputs' => $inputs]);
+        // ソートボタンを押下したら
+        $sort = $request->get('sort');
+        if ($sort) {
+            // 表示順 > 部門コード順_ASC
+            if ($sort === '1') {
+                $inputs = Category::orderBy('displayOrder', 'ASC')->orderBy('category_code', 'ASC')->get();
+            }else if($sort === '2') {
+                $inputs = Category::orderBy('displayOrder', 'DESC')->orderBy('category_code', 'ASC')->get();
+            // 部門コード順
+            }elseif ($sort === '3') {
+                $inputs = Category::orderBy('category_code', 'DESC')->get();
+            }elseif ($sort === '4') {
+                $inputs = Category::orderBy('category_code', 'ASC')->get();
+            // 立替区分 ありorなし > 部門コード順_ASC
+            }elseif ($sort === '5') {
+                $inputs = Category::orderBy('PayFor', 'ASC')->orderBy('category_code', 'ASC')->get();
+            }elseif ($sort === '6') {
+                $inputs = Category::orderBy('PayFor', 'DESC')->orderBy('category_code', 'ASC')->get();
+            }
+        } else {
+            // リンク先からきた場合（ソートボタンを押下してない場合）
+            $inputs = Category::all();
+            $inputs = Category::orderBy('category_code', 'ASC')->get();
+        }
+
+        return view(
+            'department.list',
+            [
+                'inputs' => $inputs,
+                'sort' => $sort
+            ]
+        );
+
     }
 
      /**

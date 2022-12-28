@@ -19,11 +19,23 @@
             <table class="table table-table-hover">
                 <thead style="background-color: #0d6efd; color:#fff; text-align:center">
                     <tr>
-                        <th>部門コード</th>
+                        <th>
+                            <form action="{{route('department.list')}}">
+                                <button type="submit" name="sort" value="@if (!isset($sort) || $sort !== '3') 3 @elseif ($sort === '3') 4 @endif">部門コード</button>
+                            </form>
+                        </th>
                         <th>部門名称</th>
                         <th>部門略称</th>
-                        <th>立替</th>
-                        <th>表示順</th>
+                        <th>
+                            <form action="{{route('department.list')}}">
+                                <button type="submit" name="sort" value="@if (!isset($sort) || $sort !== '5') 5 @elseif ($sort === '5') 6 @endif">立替</button>
+                            </form>
+                        </th>
+                        <th><!-- ソート機能 -->
+                            <form action="{{route('department.list')}}">
+                                <button type="submit" name="sort" value="@if (!isset($sort) || $sort !== '1') 1 @elseif ($sort === '1') 2 @endif">表示順</button>
+                            </form>
+                        </th>
                         <th>非表示</th>
                         <th></th>
                         <th></th>
