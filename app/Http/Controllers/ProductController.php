@@ -61,7 +61,7 @@ class ProductController extends Controller
         }
 
         // $queryをcategory_idの昇順に並び替えて$productsに代入
-        $products = $query->orderBy('category_id', 'asc')->paginate(10);
+        $products = $query->orderBy('category_id', 'asc')->orderBy('SummarySectionCode', 'asc')->paginate(10);
 
         // categoriesテーブルからgetLists();関数でcategory_nameとidを取得する
         $category = new Category;

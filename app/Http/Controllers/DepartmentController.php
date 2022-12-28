@@ -27,6 +27,8 @@ class DepartmentController extends Controller
     public function list()
     {
         $inputs = Category::all();
+        // $inputs をcategory__codeの昇順に並び替え
+        $inputs = Category::orderBy('category_code', 'asc')->get();
         return view('department.list',['inputs' => $inputs]);
     }
 
