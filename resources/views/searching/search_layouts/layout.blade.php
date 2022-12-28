@@ -101,6 +101,12 @@
         margin: 0;
         line-height: 2rem;
     }
+    .is_active{
+        background: #0d6efd;
+    }
+    .is_active>a{
+        color: #fff;
+    }
 
 </style>
 
@@ -120,5 +126,8 @@
           return false;
       }
   }
+  document.getElementById('c_button').onclick = function () {
+  this.style.backgroundColor = "#3fb811";
+};
 
 </script>
