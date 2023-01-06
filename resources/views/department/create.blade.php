@@ -40,13 +40,13 @@
                 <p class="input_wrap">立替区分</p>
                 <div class="input_wrap">
                     <div class="form-check department_payfor">
-                        <input class="form-check-input" type="radio" name="PayFor" id="PayFor1" value="あり">
+                        <input class="form-check-input" type="radio" name="PayFor" id="PayFor1" value="13">
                         <label class="form-check-label ps-2" for="PayFor1">
                             あり
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="PayFor" id="PayFor2"  value="なし" checked>
+                        <input class="form-check-input" type="radio" name="PayFor" id="PayFor2"  value="30" checked>
                         <label class="form-check-label ps-2" for="PayFor2">
                             なし
                         </label>
@@ -81,8 +81,8 @@
             <div class="col-12">
                 <div class="form-check input_wrap">
                     <label class="form-check-label label" for="Hidden">非表示</label>
-                    <input name="Hidden" type="hidden" value="表示">
-                    <input class="form-check-input" type="checkbox" id="Hidden" name="Hidden" value="非表示">
+                    <input name="Hidden" type="hidden" value="0">
+                    <input class="form-check-input" type="checkbox" id="Hidden" name="Hidden" value="1">
                 </div>
             </div>
             @if ($errors->has('Hidden'))

@@ -21,22 +21,26 @@
                     <tr>
                         <th>
                             <form action="{{route('department.list')}}">
-                                <button type="submit" name="sort" value="@if (!isset($sort) || $sort !== '3') 3 @elseif ($sort === '3') 4 @endif">部門コード</button>
+                                <button style="background-color:inherit; color:#fff; border:none; font-weight:bold" type="submit" name="sort" value="@if (!isset($sort) || $sort !== '3') 3 @elseif ($sort === '3') 4 @endif">部門コード</button>
                             </form>
                         </th>
                         <th>部門名称</th>
                         <th>部門略称</th>
                         <th>
                             <form action="{{route('department.list')}}">
-                                <button type="submit" name="sort" value="@if (!isset($sort) || $sort !== '5') 5 @elseif ($sort === '5') 6 @endif">立替</button>
+                                <button style="background-color:inherit; color:#fff; border:none; font-weight:bold" type="submit" name="sort" value="@if (!isset($sort) || $sort !== '5') 5 @elseif ($sort === '5') 6 @endif">立替</button>
                             </form>
                         </th>
                         <th><!-- ソート機能 -->
                             <form action="{{route('department.list')}}">
-                                <button type="submit" name="sort" value="@if (!isset($sort) || $sort !== '1') 1 @elseif ($sort === '1') 2 @endif">表示順</button>
+                                <button style="background-color:inherit; color:#fff; border:none; font-weight:bold" type="submit" name="sort" value="@if (!isset($sort) || $sort !== '1') 1 @elseif ($sort === '1') 2 @endif">表示順</button>
                             </form>
                         </th>
-                        <th>非表示</th>
+                        <th>
+                            <form action="{{route('department.list')}}">
+                                <button style="background-color:inherit; color:#fff; border:none; font-weight:bold" type="submit" name="sort" value="@if (!isset($sort) || $sort !== '7') 7 @elseif ($sort === '7') 8 @endif">非表示</button>
+                            </form>
+                        </th>
                         <th></th>
                         <th></th>
                     </tr>

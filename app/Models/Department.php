@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+//追加
+use App\Traits\OptimisticLockObserverTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +14,9 @@ use App\Models\SummarySection;
 class Department extends Model
 {
     use HasFactory;
+    //追加
+    use SoftDeletes;
+    use OptimisticLockObserverTrait;
 
     
      //テーブル名
@@ -25,8 +32,10 @@ class Department extends Model
          'PayFor',
          'Hidden',
          'DisplayOrder',
+         'updated_at',
          
      ];
+
  
     //categoriesテーブルから::pluckでcategory_nameとidを抽出し、$categoriesに返す関数を作る
     public function getLists()

@@ -22,6 +22,7 @@ class Category extends Model
          'PayFor',
          'Hidden',
          'DisplayOrder',
+         'updated_at',
          
      ];
  

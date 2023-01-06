@@ -12,6 +12,9 @@
             @csrf
             <!-- id受け取り -->
             <input type="hidden" name="id" value="{{ $input['id'] }}"> 
+            <!-- UPDATE_AT(コントローラーから文字列の)受け取り -->
+            <input type="hidden" name="updated_at" value="{{ $before_time }}"> 
+
             <div class="department_cd input_wrap">
                 <label for="category_code" class="form-label label">部門コード</label>
                 <input type="text" class="form-control input_box" id="category_code" name="category_code"  value="{{ $input['category_code'] }}">
@@ -40,13 +43,13 @@
                 <p class="input_wrap">立替区分</p>
                 <div class="input_wrap">
                     <div class="form-check department_payfor">
-                        <input class="form-check-input" type="radio" name="PayFor" id="PayFor1" value="あり">
+                        <input class="form-check-input" type="radio" name="PayFor" id="PayFor1" value="1">
                         <label class="form-check-label ps-2" for="PayFor1">
                             あり
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="PayFor" id="PayFor2"  value="なし" checked>
+                        <input class="form-check-input" type="radio" name="PayFor" id="PayFor2"  value="0" checked>
                         <label class="form-check-label ps-2" for="PayFor2">
                             なし
                         </label>
@@ -80,8 +83,8 @@
             <div class="col-12">
                 <div class="form-check input_wrap">
                     <label class="form-check-label label" for="Hidden">非表示</label>
-                    <input name="Hidden" type="hidden" value="表示">
-                    <input class="form-check-input" type="checkbox" id="Hidden" name="Hidden" value="非表示">
+                    <input name="Hidden" type="hidden" value="0">
+                    <input class="form-check-input" type="checkbox" id="Hidden" name="Hidden" value="1">
                 </div>
             </div>
 

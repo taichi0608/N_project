@@ -20,6 +20,9 @@ class CreateProductsTable extends Migration
             $table->integer('category_id')->constrained();
             $table->integer('SummarySectionCode')->unsigned();
             $table->string('product_ab_name');
+            $table->integer('DisplayOrder');
+            $table->integer('PayFor');
+            $table->integer('Hidden');
             $table->timestamps();
         });
     }

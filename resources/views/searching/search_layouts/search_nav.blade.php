@@ -44,7 +44,7 @@
   <div class="productTable" id="detail">
 
       @if(!empty($products->count()))
-      <h4>検索結果 : 全 {{ $products->count() }} 件</h4>
+      <h4>検索結果 :  {{ $products->count() }}  件表示</h4>
       <table class="table table-hover">
           <thead style="background-color: #0d6efd; color:#fff; text-align:center">
             <tr>
@@ -53,7 +53,11 @@
                 <th>集計部門コード</th>
                 <th>集計部門名称</th>
                 <th>集計部門略称</th>
+                <th>立替区分</th>
+                <th>表示順</th>
+                <th>非表示設定</th>
                 <th></th>
+                
             </tr>
           </thead>
 
@@ -68,6 +72,9 @@
                 <td>{{ $product->SummarySectionCode }}</td>
                 <td>{{ $product->SummarySectionName }}</td>
                 <td>{{ $product->product_ab_name }}</td>
+                <td>{{ $product->PayFor }}</td>
+                <td>{{ $product->DisplayOrder }}</td>
+                <td>{{ $product->Hidden }}</td>
                 
                 <!-- 編集・削除 -->
                 <td><a href="/searching/edit/{{ $product->id }}" class="btn btn-primary btn-sm">編集・削除</a></td>

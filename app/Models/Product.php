@@ -19,7 +19,11 @@ class Product extends Model
         'SummarySectionName',
         'category_id',
         'SummarySectionCode',
-        'product_ab_name'
+        'product_ab_name',
+        'PayFor',
+        'Hidden',
+        'DisplayOrder',
+        'updated_at',
     ];
 
 

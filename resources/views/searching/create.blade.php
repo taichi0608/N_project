@@ -49,6 +49,57 @@
                 <div class="text-danger validation_err">{{ $errors->first('SummarySectionCode') }}</div>
             @endif
 
+            <div class="department_payfor input_wrap m-0">
+                <p class="input_wrap">立替区分</p>
+                <div class="input_wrap">
+                    <div class="form-check department_payfor">
+                        <input class="form-check-input" type="radio" name="PayFor" id="PayFor1" value="0">
+                        <label class="form-check-label ps-2" for="PayFor1">
+                            あり
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="PayFor" id="PayFor2"  value="1" checked>
+                        <label class="form-check-label ps-2" for="PayFor2">
+                            なし
+                        </label>
+                    </div>
+                </div>
+            </div>
+            @if ($errors->has('PayFor'))
+                <div class="text-danger validation_err">{{ $errors->first('PayFor') }}</div>
+            @endif
+
+            <div class="input_wrap col-6">
+                <label for="DisplayOrder" class="form-label label">表示順</label>
+                <select id="DisplayOrder" class="form-select input_box ms-4" name="DisplayOrder">
+                    <option value="1" selected>1</option>
+                    <option value="2" >2</option>
+                    <option value="3" >3</option>
+                    <option value="4" >4</option>
+                    <option value="5" >5</option>
+                    <option value="6" >6</option>
+                    <option value="7" >7</option>
+                    <option value="8" >8</option>
+                    <option value="9" >9</option>
+                    <option value="10" >10</option>
+                </select>
+            </div>
+            @if ($errors->has('displayOrder'))
+                <div class="text-danger validation_err">{{ $errors->first('displayOrder') }}</div>
+            @endif
+
+            <div class="mt-3 d-flex">
+                <div class="form-check input_wrap">
+                    <label class="form-check-label label" for="Hidden">非表示</label>
+                    <input name="Hidden" type="hidden" value="0">
+                    <input class="form-check-input" type="checkbox" id="Hidden" name="Hidden" value="1">
+                </div>
+            </div>
+            @if ($errors->has('Hidden'))
+                <div class="text-danger validation_err">{{ $errors->first('Hidden') }}</div>
+            @endif
+
             <div class="mt-5">
               <a class="btn btn-secondary" href="{{ route('search.index') }}">
                   キャンセル
