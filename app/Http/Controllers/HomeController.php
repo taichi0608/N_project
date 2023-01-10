@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\DepartmentRequest;
+use App\Http\Requests\M_SectionRequest;
 use App\Models\Department;
 
 class HomeController extends Controller

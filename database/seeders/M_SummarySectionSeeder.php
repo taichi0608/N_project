@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use DB;
 
-class TotalizationSeeder extends Seeder
+class M_SummarySectionSeeder extends Seeder
 {
     /**
      * Run the database seeds.

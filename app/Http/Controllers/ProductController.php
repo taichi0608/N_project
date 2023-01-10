@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\ProductRequest;
-use App\Models\Product;
-use App\Models\Category;
+use App\Http\Requests\M_SummarySectionRequest;
+use App\Models\M_SummarySection;
+use App\Models\M_Section;
 use DB;
 
 class ProductController extends Controller
@@ -20,7 +20,8 @@ class ProductController extends Controller
         //フォームを機能させるために各情報を取得し、viewに返す
 
         // モデルでワードとIDでピックアップした項目を全て読み込む
-        $category = new Category;
+        $category = new M_Section;
+        
         $categories = $category->getLists();
 
         // カテゴリー名称で検索欄で検索をかけたときの処理
@@ -48,7 +49,7 @@ class ProductController extends Controller
         $searchWord = $request->input('searchWord'); //商品名の値
         $categoryId = $request->input('categoryId'); //カテゴリの値
 
-        $query = Product::query();
+        $query = M_SummarySection::query();
 
       
         // 入力欄に商品名が入力された場合、productsテーブルから一致する商品を$queryに代入
@@ -62,9 +63,10 @@ class ProductController extends Controller
 
         // $queryをcategory_idの昇順に並び替えて$productsに代入
         $products = $query->orderBy('category_id', 'asc')->orderBy('SummarySectionCode', 'asc')->paginate(10);
+        // dd($products);
 
         // categoriesテーブルからgetLists();関数でcategory_nameとidを取得する
-        $category = new Category;
+        $category = new M_Section;
         $categories = $category->getLists();
 
         return view('/searching/index', [
@@ -101,20 +103,30 @@ class ProductController extends Controller
      * 
      * @return view
      */
-    public function store(ProductRequest $request)
+    public function store(M_SummarySectionRequest $request)
     {
         $inputs = $request->all();
 
-        \DB::beginTransaction();
-        try{
-            Product::create($inputs);
-            \DB::commit();
-        }catch(\Throwable $e){
-            \DB::rollback();
-            abort(500);
+        //集計部門コード（ユニークキー）が存在しているかチェック
+        if (M_SummarySection::where('SummarySectionCode', $inputs['SummarySectionCode'])->exists() === false){
+
+            \DB::beginTransaction();
+            try{
+                M_SummarySection::create($inputs);
+                \DB::commit();
+            }catch(\Throwable $e){
+                \DB::rollback();
+                abort(500);
+            }
+            \Session::flash('err_msg' , '登録しました。');
+            return redirect( route('search.index') );
+
+        }else{
+            \Session::flash('err_msg' , '既にデータが存在しています。');
+            return redirect( route('search.index') );
         }
-        \Session::flash('err_msg' , '登録しました。');
-        return redirect( route('search.index') );
+
+        
     }
 // 新規作成フォーム表示ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
@@ -132,9 +144,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $input = Product::find($id);
+        $input = M_SummarySection::find($id);
         // 楽観ロック
-        $before_time = Product::where('id',$input['id'])->sum('updated_at'); //①編集画面からUpdated_atを取得し文字列に変換してedit.bladeに渡す（ リストの編集を押すまでのデータ ）
+        $before_time = M_SummarySection::where('id',$input['id'])->sum('updated_at'); //①編集画面からUpdated_atを取得し文字列に変換してedit.bladeに渡す（ リストの編集を押すまでのデータ ）
 
         if(is_null($input)){
             \Session::flash('err_msg','選択されたデータはありませんでした。');
@@ -148,13 +160,13 @@ class ProductController extends Controller
      * 
      * @return view
      */
-    public function update(ProductRequest $request)
+    public function update(M_SummarySectionRequest $request)
     {
         // データを受け取る
         $inputs = $request->all();
         // 楽観ロックのロジック ①と②で差があればリダイレクトさせる
         $before_time = $inputs['updated_at']; //①編集画面からUpdated_atを取得（ リストの編集を押すまでのデータ ）
-        $after_time = Product::where('id',$inputs['id'])->sum('updated_at'); //②現在のデータベースからUpdated_atを取得（ 変更するボタンを押した時のデータ ）
+        $after_time = M_SummarySection::where('id',$inputs['id'])->sum('updated_at'); //②現在のデータベースからUpdated_atを取得（ 変更するボタンを押した時のデータ ）
         
         if($before_time !== $after_time){
             return redirect()->route('search.index')
@@ -163,7 +175,7 @@ class ProductController extends Controller
             \DB::beginTransaction();
             try{
                 // データを登録
-                $input = Product::find($inputs['id']);
+                $input = M_SummarySection::find($inputs['id']);
                 \DB::commit();
                 $input->fill([
                     'SummarySectionName' => $inputs['SummarySectionName'],
@@ -195,16 +207,27 @@ class ProductController extends Controller
     public function destroy(Request $request)
     {
         $inputs = $request->all();
-        \DB::beginTransaction();
-        try{
-            Product::where('id', $inputs['id'])->delete();
-            \DB::commit();     
-        }catch(\Throwable $e){
-            \DB::rollback();
-            abort(500);
+
+        //デリート時にデータベースに値がない場合の分岐処理
+        if (M_SummarySection::where('id', $inputs['id'])->exists() !== false){
+          
+            \DB::beginTransaction();
+            try{
+                M_SummarySection::where('id', $inputs['id'])->delete();
+                \DB::commit();     
+            }catch(\Throwable $e){
+                \DB::rollback();
+                abort(500);
+            }
+
+            \Session::flash('err_msg' , '削除しました。');
+            return redirect( route('search.index') );
+
+        }else{
+            \Session::flash('err_msg' , 'データが存在しません。');
+            return redirect( route('search.index') );
         }
-        \Session::flash('err_msg' , '削除しました。');
-        return redirect( route('search.index') );
+
     }
 
    

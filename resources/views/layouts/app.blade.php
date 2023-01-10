@@ -73,85 +73,15 @@
                     </ul>
                 </div>
             </div>
-        </nav>
-        
-
-        <!-- 3カラムに変更 -->
-        <main class="">
-            <div class="row">
-                <div class="col-md-2 p-2 pt-4">
-                    <div class="card">
-                        <div class="card-header">左カラム</div>
-                        <div class="card-body card_height">
-                            <p class="card-text">
-                        
-
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-md-6 p-2 pt-4">
-                    @yield('content')
-                </div>
-
-                <div class="col-md-4 p-2 pt-4">
-                    <div class="card">
-                        <div class="card-header">メモ一覧</div>
-                        <div class="card-body card_height">
-                            @foreach($memos as $memo)
-
-
-                            <!-- ここのルート修正必要 -->
-                            <div class="mb-3 over">
-                            <!-- <div class="mb-3" id="over"> -->
-                                <p class="mous">{{$memo['content']}}</p>
-                                <a href="/sourse/laravel-simple-memo/public/edit/{{$memo['id']}}" class="card-text d-block">
-                                <!-- <a href="/edit/{{$memo['id']}}" class="card-text d-block"> -->
-                                <!-- ここのルート修正必要 -->
-                                    ・{{$memo['title']}}
-                                </a>
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
+        </nav>    
+        <div class="col-md-6 p-2 pt-4">
+            @yield('content')
+        </div>
     </div>
 </body>
 </html>
 
-<style>
- 
-    .mous{
-        display: none;
-        position: absolute;
-        top :50%;
-        left:-100%;
-        background: #999;
-        padding: 30px;
-    }
-</style>
-<script>
-    //target要素を指定
-    const over = document.getElementsByClassName('over');
-    // const over = document.getElementById('over');
-    const mous = document.getElementsByClassName('mous');
 
-    //マウスが要素上に入った時
-    over[0].addEventListener('mouseover', () => {
-    
-    mous[0].style.display = 'block';
-    
-    }, false);
 
-    //マウスが要素上から離れた時
-    over[0].addEventListener('mouseleave', () => {
-    
-    mous[0].style.display = 'none';
-    
-    }, false);
 
-</script>
 

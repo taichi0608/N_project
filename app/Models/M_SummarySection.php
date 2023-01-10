@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class M_SummarySection extends Model
 {
 
     use HasFactory;
@@ -26,11 +26,9 @@ class Product extends Model
         'updated_at',
     ];
 
-
-    //「商品(products)はカテゴリ(category)に属する」というリレーション関係を定義する
     public function category()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(M_Section::class);
     }
 
 
